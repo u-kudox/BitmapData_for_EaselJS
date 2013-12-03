@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>compare | BitmapData for EaselJS</title>
+<link rel="stylesheet" type="text/css" href="css/sample.css" media="all">
+<script type="text/javascript" src="js/preloadjs-0.4.0.min.js"></script>
+<script type="text/javascript" src="js/easeljs-0.7.0.min.js"></script>
+<script type="text/javascript" src="js/bitmapdata-1.0.0.min.js"></script>
+<script type="text/javascript">
+
+(function(window) {
+	var FPS = 60;
+
+	var _canvas;
+	var _stage;
+	var _image01, _image02;
+	var _bmd01, _bmd02, _bmd03;
+	var _bitmap01, _bitmap02, _bitmap03;
+
+	function init(canvasID) {
+		_canvas = document.getElementById(canvasID);
+		_stage = new createjs.Stage(_canvas);
+		createjs.Ticker.setFPS(FPS);
+		createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNCHED;
+		load();
+	}
+
+	function draw() {
+		_bmd01 = new createjs.BitmapData(_image01);
+		_bmd03 = new createjs.BitmapData(_image02);
+		var otherSource = _bmd03;
+		_bmd02 = _bmd01.compare(otherSource);
+		_bitmap01 = new createjs.Bitmap(_bmd01.canvas);
+		_bitmap02 = new createjs.Bitmap(_bmd02.canvas);
+		_bitmap03 = new createjs.Bitmap(_bmd03.canvas);
+		_bitmap01.x = 10;
+		_bitmap02.x = 220;
+		_bitmap03.x = 430;
+		_bitmap01.y = _bitmap02.y = _bitmap03.y =  80;
+		_stage.addChild(_bitmap01);
+		_stage.addChild(_bitmap02);
+		_stage.addChild(_bitmap03);
+		_stage.update();
+	}
+
+	function load() {
+		var loader = new createjs.LoadQueue();
+		var manifest = [
+			{src:"img/image_01_s.jpg", id:"image01s"},
+			{src:"img/image_03_s.jpg", id:"image03s"}
+		];
+		function fileloadHandler(evt) {
+			switch(evt.item.id) {
+				case "image01s" :
+					_image01 = evt.result;
+					break;
+				case "image03s" :
+					_image02 = evt.result;
+					break;
+			}
+		}
+		function completeHandler(evt) {
+			loader.removeAllEventListeners();
+			loader.removeAll();
+			draw();
+		}
+		loader.addEventListener("fileload", fileloadHandler);
+		loader.addEventListener("complete", completeHandler);
+		loader.loadManifest(manifest);
+	}
+
+	window.addEventListener("load", function loadHandler(evt) {
+		removeEventListener("load", loadHandler);
+		init("my-canvas")
+	});
+
+}(window));
+
+</script>
+</head>
+<body>
+<canvas width="640" height="360" id="my-canvas"></canvas>
+</body>
+</html>

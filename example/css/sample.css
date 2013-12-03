@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+body {
+	margin:0;
+	padding:0;
+	background-color:#eee;
+}
+
+p {
+	text-align:center;
+}
+
+#my-canvas {
+	display:block;
+	color:#666;
+	font-size:100%;
+	background-color:#fff;
+	border:1px solid #ccc;
+	margin:50px auto 0;
+	padding:0;
+}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>pixelDissolve | BitmapData for EaselJS</title>
+<link rel="stylesheet" type="text/css" href="css/sample.css" media="all">
+<script type="text/javascript" src="js/preloadjs-0.4.0.min.js"></script>
+<script type="text/javascript" src="js/easeljs-0.7.0.min.js"></script>
+<script type="text/javascript" src="js/bitmapdata-1.0.0.min.js"></script>
+<script type="text/javascript" src="js/stats.min.js"></script>
+<script type="text/javascript">
+
+(function(window) {
+	var FPS = 30;
+
+	var _stats;
+	var _canvas;
+	var _stage;
+	var _image01, _image02;
+	var _bmd01;
+	var _bitmap01;
+	var _source;
+	var _buffer;
+
+	function init(canvasID) {
+		var ua = navigator.userAgent.toString().toLowerCase();
+		if (ua.indexOf("iphone") != -1 || ua.indexOf("ipad") != -1 || ua.indexOf("android") != -1) {
+			document.body.innerHTML = "<p>このサンプルは処理負荷が高いため、モバイル端末では表示しないようにしています。<br>恐れ入りますが、PCのブラウザでご覧下さい。</p>";
+			return;
+		}
+		_stats = new Stats();
+		_stats.setMode(0);
+		_stats.domElement.style.position = "absolute";
+		_stats.domElement.style.left = "0px";
+		_stats.domElement.style.top = "0px";
+		document.body.appendChild(_stats.domElement);
+		_canvas = document.getElementById(canvasID);
+		_stage = new createjs.Stage(_canvas);
+		createjs.Ticker.setFPS(FPS);
+		createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNCHED;
+		load();
+	}
+
+	function draw() {
+		_bmd01 = new createjs.BitmapData(null, 200, 200, 0xCCCCCC);
+		_bitmap01 = new createjs.Bitmap(_bmd01.canvas);
+		_bitmap01.regX = _bmd01.width >> 1;
+		_bitmap01.regY = _bmd01.height >> 1;
+		_bitmap01.x = _canvas.width >> 1;
+		_bitmap01.y = _canvas.height >> 1;
+		_stage.addChild(_bitmap01);
+		createjs.Ticker.addEventListener("tick", tickHandler);
+		_bitmap01.addEventListener("click", changeSource);
+		_source = _image01;
+	}
+
+	function tickHandler(evt) {
+		if (_buffer === 0) {
+			return;
+		}
+		var sourceRect = new createjs.Rectangle(0, 0, _source.width, _source.height);
+		var destPoint = new createjs.Point(sourceRect.x, sourceRect.y);
+		var numPixels = 600;
+		var fillColor = null
+		_buffer = _bmd01.pixelDissolve(_source, sourceRect, destPoint, _buffer, numPixels, fillColor);
+		_stage.update();
+		_stats.update();
+	}
+
+	function changeSource(evt) {
+		_source = (_source === _image01) ? _image02 : _image01;
+		_buffer = null;
+	}
+
+	function load() {
+		var loader = new createjs.LoadQueue();
+		var manifest = [
+			{src:"img/image_01_s.jpg", id:"image01s"},
+			{src:"img/image_02_s.jpg", id:"image02s"}
+		];
+		function fileloadHandler(evt) {
+			switch(evt.item.id) {
+				case "image01s" :
+					_image01 = evt.result;
+					break;
+				case "image02s" :
+					_image02 = evt.result;
+					break;
+			}
+		}
+		function completeHandler(evt) {
+			loader.removeAllEventListeners();
+			loader.removeAll();
+			draw();
+		}
+		loader.addEventListener("fileload", fileloadHandler);
+		loader.addEventListener("complete", completeHandler);
+		loader.loadManifest(manifest);
+	}
+
+	window.addEventListener("load", function loadHandler(evt) {
+		removeEventListener("load", loadHandler);
+		init("my-canvas")
+	});
+
+}(window));
+
+</script>
+</head>
+<body>
+<canvas width="640" height="360" id="my-canvas"></canvas>
+<p>click to pixelDissolve</p>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+    "name": "BitmapData for EaselJS",
+    "description": "BitmapData for EaselJS API documentation.",
+    "version": "1.0.0",
+    "url": "http://kudox.jp/java-script/createjs-easeljs-bitmapdata",
+    "options": {
+        "outdir": "../docs",
+        "paths":["../src"]
+    }
+}

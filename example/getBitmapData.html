@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>getBitmapData | BitmapData for EaselJS</title>
+<link rel="stylesheet" type="text/css" href="css/sample.css" media="all">
+<script type="text/javascript" src="js/easeljs-0.7.0.min.js"></script>
+<script type="text/javascript" src="js/bitmapdata-1.0.0.min.js"></script>
+<script type="text/javascript">
+
+(function(window) {
+	var FPS = 60;
+
+	var _canvas;
+	var _stage;
+	var _shape;
+	var _bmd01;
+
+	function init(canvasID) {
+		_canvas = document.getElementById(canvasID);
+		_stage = new createjs.Stage(_canvas);
+		createjs.Ticker.setFPS(FPS);
+		createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNCHED;
+		draw();
+	}
+
+	function draw() {
+		_shape = new createjs.Shape();
+		var g = _shape.graphics;
+		g.f("rgba(0,0,255,1)").dp(0, 0, 100, 5, 0.6, -90).ef();
+		_shape.x = _canvas.width >> 1;
+		_shape.y = _canvas.height >> 1;
+		_shape.cache(-100, -100, 200, 200);
+		_bmd01 = createjs.BitmapData.getBitmapData(_shape);
+		var colorTransform = new createjs.ColorTransform(1, 1, 0, 1, 255);
+		var rect = new createjs.Rectangle(0, 0, _bmd01.width >> 1, _bmd01.height);
+		_bmd01.colorTransform(rect, colorTransform);
+		_stage.addChild(_shape);
+		_stage.update();
+	}
+
+	window.addEventListener("load", function loadHandler(evt) {
+		removeEventListener("load", loadHandler);
+		init("my-canvas")
+	});
+
+}(window));
+
+</script>
+</head>
+<body>
+<canvas width="640" height="360" id="my-canvas"></canvas>
+</body>
+</html>

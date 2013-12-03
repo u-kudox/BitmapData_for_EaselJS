@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>draw | BitmapData for EaselJS</title>
+<link rel="stylesheet" type="text/css" href="css/sample.css" media="all">
+<script type="text/javascript" src="js/easeljs-0.7.0.min.js"></script>
+<script type="text/javascript" src="js/bitmapdata-1.0.0.min.js"></script>
+<script type="text/javascript" src="js/stats.min.js"></script>
+<script type="text/javascript">
+
+(function(window) {
+	var FPS = 60;
+
+	var _stats;
+	var _canvas;
+	var _stage;
+	var _source;
+	var _sourceRect;
+	var _bmd01;
+	var _bitmap01;
+
+	function init(canvasID) {
+		_stats = new Stats();
+		_stats.setMode(0);
+		_stats.domElement.style.position = "absolute";
+		_stats.domElement.style.left = "0px";
+		_stats.domElement.style.top = "0px";
+		document.body.appendChild(_stats.domElement);
+		_canvas = document.getElementById(canvasID);
+		_stage = new createjs.Stage(_canvas);
+		var shape = new createjs.Shape();
+		var g = shape.graphics;
+		g.f("rgba(64,64,64,1)").dp(0, 0, 20, 6, 0.8, -90).ef();
+		shape.x = _canvas.width >> 1;
+		shape.y = _canvas.height >> 1;
+		var boxBlurFilter = new createjs.BlurFilter(2, 2, 1);
+		shape.filters = [boxBlurFilter];
+		_sourceRect = new createjs.Rectangle(-20, -20, 40, 40);
+		shape.cache(_sourceRect.x, _sourceRect.y, _sourceRect.width, _sourceRect.height);
+		_source = createjs.BitmapData.getBitmapData(shape);
+		_bmd01 = new createjs.BitmapData(null, 640, 360, 0x000000);
+		_bitmap01 = new createjs.Bitmap(_bmd01.canvas);
+		_stage.addChild(_bitmap01);
+		createjs.Ticker.setFPS(FPS);
+		createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNCHED;
+		createjs.Ticker.addEventListener("tick", tickHandler);
+	}
+
+	function tickHandler(evt) {
+		draw();
+		draw();
+		_stage.update();
+		_stats.update();
+	}
+
+	function draw() {
+		var matrix = new createjs.Matrix2D(1, 0, 0, 1, -_sourceRect.width >> 1, -_sourceRect.height >> 1);
+		var rotation = Math.random() * 360 >> 0;
+		matrix.rotate(rotation * createjs.Matrix2D.DEG_TO_RAD);
+		var scale = Math.random() * 0.5 + 0.5;
+		matrix.scale(scale, scale);
+		var tx = Math.random() * _bmd01.width >> 0;
+		var ty = Math.random() * _bmd01.height >> 0;
+		matrix.translate(tx, ty);
+		var red = (Math.random() * 224 >> 0) + 32;
+		var green = (Math.random() * 224 >> 0) + 32;
+		var blue = (Math.random() * 224 >> 0) + 32;
+		var colorTransform = new createjs.ColorTransform(0, 0, 0, 1, red, green, blue);
+		var compositeOperation = "lighter";
+		var clipRect = null;
+		var smoothing = true;
+		_bmd01.draw(_source, matrix, colorTransform, compositeOperation, clipRect, smoothing);
+		_bmd01.fillRect(new createjs.Rectangle(0, 0, _bmd01.width, _bmd01.height), 0x06000000);
+	}
+
+	window.addEventListener("load", function loadHandler(evt) {
+		removeEventListener("load", loadHandler);
+		init("my-canvas")
+	});
+
+}(window));
+
+</script>
+</head>
+<body>
+<canvas width="640" height="360" id="my-canvas"></canvas>
+</body>
+</html>

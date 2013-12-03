@@ -1,0 +1,31 @@
+ver 1.0.0 [Oct 16, 2013]
+**********************************************************************************
+- EaselJS v0.7.0に合わせて”use strict”宣言を入れました。
+- perlinNoiseメソッドを追加。
+- exampleフォルダにperlinNoise.htmlを追加。
+- applyFilterメソッドを追加。
+- exampleフォルダにapplyFilter.htmlを追加。
+- expandメソッドを追加。
+- exampleフォルダにexpand.htmlを追加。
+- リファレンスに誤りがありましたので修正しました。ver0.8.5ではscroll()の引数の型をuintと
+  記載していましたが、正しくはintとなります。
+
+ver 0.8.5 [Sep 6, 2013]
+**********************************************************************************
+- docsフォルダを追加。
+- exampleフォルダにgetPixels_setPixels.htmlを追加。
+- copyPixels()の第5引数alphaPointを省略した場合のデフォルト値をActionScript3.0に合わせて
+  (sourceRect.x, sourceRect.y)から(0, 0)に変更。
+- draw()の第1引数に指定できるオブジェクトにHTMLImageElement, HTMLCanvasElement, 
+  HTMLVideoElementを追加。
+- pixelDissolve()の第6引数fillColorを省略できない問題を修正。省略した場合のデフォルト値は
+  ActionScript3.0と同様に0となります。
+- hitTest()の第2引数firstAlphaThresholdを省略できてしまう問題を修正。firstAlphaThresholdは
+  省略不可となります。
+- その他、高速化のため内部処理をいくつか変更。この変更に伴う引数や戻り値などの変更はありません。
+
+
+
+ver 0.8.2 [Aug 27, 2013]
+**********************************************************************************
+Initial release.
