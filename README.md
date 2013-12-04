@@ -1,10 +1,9 @@
 # Bitmapdata for EaselJS
 
-"BitmapData for EaselJS" add AS3 like BitmapData to EaselJS.
+BitmapData for EaselJS adds AS3 like BitmapData to EaselJS.
 
 
-## Example1
-
+## Example 1
 	// create BitmapData by HTMLImageElement
 	_bmd01 = new createjs.BitmapData(HTMLImageElement);
 	_bitmap01 = new createjs.Bitmap(_bmd01.canvas);
@@ -18,8 +17,7 @@
 	_stage.addChild(_bitmap02);
 
 
-## Example2
-
+## Example 2
 	_shape = new createjs.Shape();
 	var g = _shape.graphics;
 	g.f("rgba(0, 0, 255, 1)").dp(0, 0, 100, 5, 0.6, -90).ef();
@@ -33,9 +31,14 @@
 
 
 ## Resources
-* More information and examples at the [kudox.jp](http://kudox.jp)
-* Read the documentation at the [BitmapData for EaselJS API Documentation](http://kudox.jp/reference/bitmapdata_for_easeljs/classes/createjs.BitmapData.html)
+* More information and samples at the [kudox.jp](http://kudox.jp/java-script/createjs-easeljs-bitmapdata-tutorial)
+* Read the documentation at the [BitmapData for EaselJS API Documentation](http://kudox.jp/reference/bitmapdata_for_easeljs/)
+
+
+## Contact and bug reports
+* [kudox.jp](http://kudox.jp/contact)
+* [Twitter](http://twitter.com/u_kudox)
 
 
 ## License
-Licensed under the MIT License
+MIT License

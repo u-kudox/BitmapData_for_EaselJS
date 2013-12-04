@@ -10,13 +10,15 @@ ver 1.0.0 [Oct 16, 2013]
 - リファレンスに誤りがありましたので修正しました。ver0.8.5ではscroll()の引数の型をuintと
   記載していましたが、正しくはintとなります。
 
+
+
 ver 0.8.5 [Sep 6, 2013]
 **********************************************************************************
 - docsフォルダを追加。
 - exampleフォルダにgetPixels_setPixels.htmlを追加。
 - copyPixels()の第5引数alphaPointを省略した場合のデフォルト値をActionScript3.0に合わせて
   (sourceRect.x, sourceRect.y)から(0, 0)に変更。
-- draw()の第1引数に指定できるオブジェクトにHTMLImageElement, HTMLCanvasElement, 
+- draw()の第1引数に指定できるオブジェクトにHTMLImageElement, HTMLCanvasElement,
   HTMLVideoElementを追加。
 - pixelDissolve()の第6引数fillColorを省略できない問題を修正。省略した場合のデフォルト値は
   ActionScript3.0と同様に0となります。
