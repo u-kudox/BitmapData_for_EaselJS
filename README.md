@@ -3,7 +3,7 @@
 BitmapData for EaselJS adds AS3 like BitmapData to EaselJS.
 
 
-## Example 1
+## Example1
 	// create BitmapData by HTMLImageElement
 	_bmd01 = new createjs.BitmapData(HTMLImageElement);
 	_bitmap01 = new createjs.Bitmap(_bmd01.canvas);
@@ -17,7 +17,7 @@ BitmapData for EaselJS adds AS3 like BitmapData to EaselJS.
 	_stage.addChild(_bitmap02);
 
 
-## Example 2
+## Example2
 	_shape = new createjs.Shape();
 	var g = _shape.graphics;
 	g.f("rgba(0, 0, 255, 1)").dp(0, 0, 100, 5, 0.6, -90).ef();
