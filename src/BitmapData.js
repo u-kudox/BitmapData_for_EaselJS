@@ -1590,16 +1590,25 @@ _bmd01.perlinNoise(baseX, baseY, numOctaves, randomSeed, stitch, fractalNoise, c
 	};
 
 	/**
+	* Tests the pixels of the bitmapdata with the specified threshold, and sets a new color value by its result.<br>
 	* 指定されたしきい値でBitmapDataのピクセル値をテストし、その合否によってピクセルに新たなカラー値をセットします。
 	* @method threshold
-	* @param source {BitmapData | DisplayObject | Stage | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement} ソースとなるオブジェクトを指定します。
-	* @param sourceRect {Rectangle} ソースオブジェクトの範囲を示すRectangleです。
-	* @param destPoint {Point} ピクセルの置き換え先の左上座標を示すPointです。
-	* @param operation {String} ピクセルのテストに使う比較演算子を文字列で指定します。指定することができる値は、"<", "<=", ">", ">=", "==", "!="です。
-	* @param threshold {uint} しきい値となるカラー値を指定します。0xAARRGGBB形式の16進数値のみ使用できます。
-	* @param [color=0] {uint} テストに合格した際にセットされる新しいカラー値を指定します。0xAARRGGBB形式の16進数値のみ使用できます。
-	* @param [mask=0] {uint} 範囲を設定するマスク値を指定します。0xAARRGGBB形式の16進数値のみ使用できます。
-	* @param [copySource=false] {Boolean} 比較結果がfalseの場合にソースオブジェクトのピクセルを現在のBitmapDataにコピーするかをBool値で指定します。
+	* @param source {BitmapData | DisplayObject | Stage | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement} An object to use as a source.<br>
+	* ソースとなるオブジェクトを指定します。
+	* @param sourceRect {Rectangle} A rectangle object that defines the area of the source.<br>
+	* ソースオブジェクトの範囲を示すRectangleです。
+	* @param destPoint {Point} The destination Point that represents the upper-left corner of the destination bitmapdata.<br>
+	* ピクセルの置き換え先の左上座標を示すPointです。
+	* @param operation {String} A string representation of the comparison operator to test the pixels. The valid value are "<", "<=", ">", ">=", "==", "!=".<br>
+	* ピクセルのテストに使う比較演算子を文字列で指定します。指定することができる値は、"<", "<=", ">", ">=", "==", "!="です。
+	* @param threshold {uint} A color value ​​to be used as a threshold. You can use only a ARGB color value (ex. 0xAARRGGBB).<br>
+	* しきい値となるカラー値を指定します。0xAARRGGBB形式の16進数値のみ使用できます。
+	* @param [color=0] {uint} A new color value to set the pixels in case of passing the test. You can use only a ARGB color value (ex. 0xAARRGGBB).<br>
+	* テストに合格した際にセットされる新しいカラー値を指定します。0xAARRGGBB形式の16進数値のみ使用できます。
+	* @param [mask=0] {uint} A value of the mask to use to isolate a color component. You can use only a ARGB color value (ex. 0xAARRGGBB).<br>
+	* 範囲を設定するマスク値を指定します。0xAARRGGBB形式の16進数値のみ使用できます。
+	* @param [copySource=false] {Boolean} A boolean value that determines whether or not to copy the pixels from the source object to the current bitmapdata, when the threshold test is false.<br>
+	* 比較結果がfalseの場合にソースオブジェクトのピクセルを現在のBitmapDataにコピーするかをBool値で指定します。
 	* @example
 	* <pre><code>_bmd01 = new createjs.BitmapData(_image01);
 var source = _bmd01;
@@ -1696,6 +1705,7 @@ _bmd01.threshold(source, sourceRect, destPoint, operation, threshold, color, mas
 	};
 
 	/**
+	* Updates the context with the imageData (instance property). You must call this method after calling setPixel() or setPixel32().  By calling updateContext(), the bitmapdata is updated with results of setPixel() or setPixel32().<br>
 	* 内部に保持しているimageDataの内容でcontextを更新します。setPixel(), setPixel32()の処理を行った後は、このメソッドを実行する必要があります。updateContext()を実行することでsetPixel(), setPixel32()で行った処理がBitmapDataに反映されます。
 	* @method updateContext
 	**/
@@ -1704,6 +1714,7 @@ _bmd01.threshold(source, sourceRect, destPoint, operation, threshold, color, mas
 	};
 
 	/**
+	* Updates the imageData of the instance property.
 	* 内部に保持しているimageDataを最新の状態に更新します。contextを直接操作した場合やgetBitmapData()で取得したcacheをupdateCache()した場合には、このメソッドを実行する必要があります。
 	* @method updateImageData
 	**/
