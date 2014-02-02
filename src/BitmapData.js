@@ -1211,14 +1211,22 @@ _bmd01.paletteMap(source, sourceRect, destPoint, redArray, greenArray, blueArray
 	* x方向で使用する周波数です。
 	* @param baseY {Number} Frequency to use in the y direction.<br>
 	* y方向で使用する周波数です。
-	* @param numOctaves {uint} PerlinNoiseを作成するために組み合わせるオクターブの数です。オクターブ数を大きくすると、よりきめ細かいノイズを作成できますが、その分、処理に時間がかかります。
-	* @param randomSeed {int} ノイズの生成に使用するランダムシード（乱数の種）を指定します。同じランダムシードからは、毎回同じ結果が得られます。
-	* @param [stitch=false] {Boolean} trueを指定した場合、タイリングに適したシームレスなPerlinNoiseを生成しますが、その分、処理に時間がかかります。
-	* @param [fractalNoise=false] {Boolean} trueを指定した場合、フラクタルノイズを生成します。
-	* @param [channelOptions=7] {uint} 対象とするチャンネルを指定します。BitmapDataChannelクラスの定数が使え、OR論理演算子で複数のチャンネルを組み合わせることができます。
-	* @param [grayScale=false] {Boolean} trueを指定した場合、RGBの各カラーチャンネルに同じ値を設定して、グレースケールのノイズが作成されます。この値はアルファチャンネルには影響しません。
-	* @param [offsets=null] {Array} 各オクターブのオフセット値を格納した配列です。オフセット値はPointインスタンスで指定します。
-	* @param [interpolateType="linear"] {String} ノイズを滑らかにする補間のタイプを"linear"と"cos"から選択できます。"cos"の方が滑らかな結果が得られますが、その分、処理に時間がかかります。デフォルト値は"linear"です。
+	* @param numOctaves {uint} A Number of octaves to combine to create the noise. Larger number of octaves create images with greater detail, but also require more processing time.<br>
+	* PerlinNoiseを作成するために組み合わせるオクターブの数です。オクターブ数を大きくすると、よりきめ細かいノイズを作成できますが、その分、処理に時間がかかります。
+	* @param randomSeed {int} The random seed number to use to create the noise. Same random seed creates the same results each time.<br>
+	* ノイズの生成に使用するランダムシード（乱数の種）を指定します。同じランダムシードからは、毎回同じ結果が得られます。
+	* @param [stitch=false] {Boolean} If you set the value to true, the method attempts to smooth the transition edges of the image to create seamless textures for tiling as a bitmap fill. But also require more processing time.<br>
+	* trueを指定した場合、タイリングに適したシームレスなPerlinNoiseを生成しますが、その分、処理に時間がかかります。
+	* @param [fractalNoise=false] {Boolean} If you set the value to true, the method generates fractal noise.<br>
+	* trueを指定した場合、フラクタルノイズを生成します。
+	* @param [channelOptions=7] {uint} The target channels. You can use the constant of the BitmapDataChannel class. And you can use the logical OR operator (|) to combine channel values.<br>
+	* 対象とするチャンネルを指定します。BitmapDataChannelクラスの定数が使え、OR論理演算子で複数のチャンネルを組み合わせることができます。
+	* @param [grayScale=false] {Boolean} If you set the value to true, a grayscale image is created by setting each of the red, green, blue color channels to identical values. But this value doesn't affects the alpha channel.<br>
+	* trueを指定した場合、RGBの各カラーチャンネルに同じ値を設定して、グレースケールのノイズが作成されます。この値はアルファチャンネルには影響しません。
+	* @param [offsets=null] {Array} An array of points that correspond to offsets value for each octave.<br>
+	* 各オクターブのオフセット値を格納した配列です。オフセット値はPointインスタンスで指定します。
+	* @param [interpolateType="linear"] {String} You can choose the type of interpolation from "linear" or "cos", to smoothing the noise. The value "cos" creates smoother result, but also require more processing time. The default value is "linear".<br>
+	* ノイズを滑らかにする補間のタイプを"linear"と"cos"から選択できます。"cos"の方が滑らかな結果が得られますが、その分、処理に時間がかかります。デフォルト値は"linear"です。
 	* @example
 	* <pre><code>_bmd01 = new createjs.BitmapData(null, 320, 240);
 var baseX = _bmd01.width;
@@ -1414,8 +1422,8 @@ _bmd01.perlinNoise(baseX, baseY, numOctaves, randomSeed, stitch, fractalNoise, c
 	* ディゾルブ先の左上座標を示すPointです。
 	* @param [buffer=null] {Array} If you want to performs consecutive pixel-dissolve, please specify the return value of the pixelDissolve().<br>
 	* 連続したピクセルディゾルブを実行したい場合は、pixelDissolve()の戻り値のbuffer配列を指定します。
-	* @param [numPixels=0] {uint} A number of pixels to be replaced at a single process. The default value is sourceRect.width * souceRect.height / 30.<br>
-	* 1回の処理で置き換えるピクセル数です。デフォルト値は、sourceRect.width * souceRect.height / 30 です。
+	* @param [numPixels=0] {uint} A number of pixels to be replaced at a single process. The default value is sourceRect.width \* souceRect.height / 30.<br>
+	* 1回の処理で置き換えるピクセル数です。デフォルト値は、sourceRect.width \* souceRect.height / 30 です。
 	* @param [fillColor=0] {uint} A ARGB color value to fill the pixels, when the source object equals the current bitmapdata.<br>
 	* ソースオブジェクトが現在のBitmapDataの場合に使用されるカラー値を0xAARRGGBB形式の16進数値で指定します。
 	* @return {Array} Returns the buffer array. If you want to performs consecutive pixel-dissolve, pass the return value as the 4th parameter at the next calling. When the pixel-dissolve is finished, the method returns number 0.<br>
@@ -1497,11 +1505,13 @@ _bmd01.perlinNoise(baseX, baseY, numOctaves, randomSeed, stitch, fractalNoise, c
 	};
 
 	/**
+	* Scrolls an image by a specified pixel amount. Edge regions outside the scrolling area are left unchanged.<br>
 	* 指定されたピクセル量だけイメージをスクロールします。スクロール領域外のエッジ領域は変わらずにそのままになります。
 	* @method scroll
-	* @param x {int}
+	* @param x {int} The amount by which to scroll horizontally.<br>
 	* x軸方向のスクロール量です。
-	* @param y {int} y軸方向のスクロール量です。
+	* @param y {int}  The amount by which to scroll vertically.<br>
+	* y軸方向のスクロール量です。
 	**/
 	p.scroll = function(x, y) {
 		var ctx = this.context;
@@ -1705,7 +1715,7 @@ _bmd01.threshold(source, sourceRect, destPoint, operation, threshold, color, mas
 	};
 
 	/**
-	* Updates the context with the imageData (instance property). You must call this method after calling setPixel() or setPixel32().  By calling updateContext(), the bitmapdata is updated with results of setPixel() or setPixel32().<br>
+	* Updates the context with the imageData (instance property). You must call this method after calling setPixel() or setPixel32(). By calling updateContext(), the bitmapdata is updated with results of setPixel() or setPixel32().<br>
 	* 内部に保持しているimageDataの内容でcontextを更新します。setPixel(), setPixel32()の処理を行った後は、このメソッドを実行する必要があります。updateContext()を実行することでsetPixel(), setPixel32()で行った処理がBitmapDataに反映されます。
 	* @method updateContext
 	**/
@@ -1714,7 +1724,7 @@ _bmd01.threshold(source, sourceRect, destPoint, operation, threshold, color, mas
 	};
 
 	/**
-	* Updates the imageData of the instance property.
+	* Updates the imageData of the instance property to the latest state. You must call this method when you operated context directly or you called updateCache() at the cache that got by getBitmapData().<br>
 	* 内部に保持しているimageDataを最新の状態に更新します。contextを直接操作した場合やgetBitmapData()で取得したcacheをupdateCache()した場合には、このメソッドを実行する必要があります。
 	* @method updateImageData
 	**/
@@ -1753,12 +1763,14 @@ _bmd01.threshold(source, sourceRect, destPoint, operation, threshold, color, mas
 	}
 
 	/**
+	* The BitmapDataChannel class is an enumeration of constant values that indicate which channel to use: red, blue, green, alpha. When you call some methods, you can use the bitwise OR operator (|) to combine BitmapDataChannel constants to indicate multiple color channels.<br><br>
 	* BitmapDataChannelクラスは、赤、緑、青、アルファのいずれのチャンネルを使用するかを示す際に使用できる定数値を保持しています。メソッドを呼び出すとき、OR論理演算子を使ってBitmapDataChannel定数を結合することにより、複数のカラーチャンネルを同時に指定することができます。
 	* @static
 	* @class BitmapDataChannel
 	**/
 	var BitmapDataChannel = {
 		/**
+		* The value represents alpha channel.<br>
 		* アルファチャンネルを表す定数です。
 		* @static
 		* @property ALPHA
@@ -1768,6 +1780,7 @@ _bmd01.threshold(source, sourceRect, destPoint, operation, threshold, color, mas
 		ALPHA : 8,
 
 		/**
+		* The value represents blue channel.<br>
 		* 青チャンネルを表す定数です。
 		* @static
 		* @property BLUE
@@ -1777,6 +1790,7 @@ _bmd01.threshold(source, sourceRect, destPoint, operation, threshold, color, mas
 		BLUE : 4,
 
 		/**
+		* The value represents green channel.<br>
 		* 緑チャンネルを表す定数です。
 		* @static
 		* @property GREEN
@@ -1786,6 +1800,7 @@ _bmd01.threshold(source, sourceRect, destPoint, operation, threshold, color, mas
 		GREEN : 2,
 
 		/**
+		* The value represents red channel.<br>
 		* 赤チャンネルを表す定数です。
 		* @static
 		* @property RED
@@ -1809,17 +1824,26 @@ _bmd01.threshold(source, sourceRect, destPoint, operation, threshold, color, mas
 	};
 
 	/**
-	* ColorTransformクラスは、BitmapDataクラスのカラー値を調整する際に使用することができます。R, G, B, Aの各チャンネルで乗数値（Multiplier）とオフセット値（Offset）を保持します。ColorTransformオブジェクトを適用する際に各チャンネルに設定される値の算出方法は下記の通りです。<br>新しい値 = (古い値 * Multiplier) + Offset
+	* ColorTransform class can be used to adjust the color values of the bitmapdata. The ColorTransform maintains multiplier and offset in each channel: red, green, blue, alpha. When a ColorTransform is applied to a bitmapdata, a new value for each color channel is calculated like this.<br>New value = (Old value \* Multiplier) + Offset<br><br>
+	* ColorTransformクラスは、BitmapDataクラスのカラー値を調整する際に使用することができます。R, G, B, Aの各チャンネルで乗数値（Multiplier）とオフセット値（Offset）を保持します。ColorTransformオブジェクトを適用する際に各チャンネルに設定される値の算出方法は下記の通りです。<br>新しい値 = (古い値 \* Multiplier) + Offset
 	* @class ColorTransform
 	* @constructor
-	* @param [redMultiplier=1] {Number} 赤チャンネルの乗数値です。
-	* @param [greenMultiplier=1] {Number} 緑チャンネルの乗数値です。
-	* @param [blueMultiplier=1] {Number} 青チャンネルの乗数値です。
-	* @param [alphaMultiplier=1] {Number} アルファチャンネルの乗数値です。
-	* @param [redOffset=0] {Number} 赤チャンネルのオフセット値です。
-	* @param [greenOffset=0] {Number} 緑チャンネルのオフセット値です。
-	* @param [blueOffset=0] {Number} 青チャンネルのオフセット値です。
-	* @param [alphaOffset=0] {Number} アルファチャンネルのオフセット値です。
+	* @param [redMultiplier=1] {Number} The value for the red multiplier.<br>
+	* 赤チャンネルの乗数値です。
+	* @param [greenMultiplier=1] {Number} The value for the green multiplier.<br>
+	* 緑チャンネルの乗数値です。
+	* @param [blueMultiplier=1] {Number} The value for the blue multiplier.<br>
+	* 青チャンネルの乗数値です。
+	* @param [alphaMultiplier=1] {Number} The value for the alpha multiplier.<br>
+	* アルファチャンネルの乗数値です。
+	* @param [redOffset=0] {Number} The offset value for the red color channel.<br>
+	* 赤チャンネルのオフセット値です。
+	* @param [greenOffset=0] {Number} The offset value for the green color channel.<br>
+	* 緑チャンネルのオフセット値です。
+	* @param [blueOffset=0] {Number} The offset value for the blue color channel.<br>
+	* 青チャンネルのオフセット値です。
+	* @param [alphaOffset=0] {Number} The offset value for the alpha channel.<br>
+	* アルファチャンネルのオフセット値です。
 	**/
 	var ColorTransform = (function() {
 		function ColorTransform(redMultiplier, greenMultiplier, blueMultiplier, alphaMultiplier, redOffset, greenOffset, blueOffset, alphaOffset) {
@@ -1835,6 +1859,7 @@ _bmd01.threshold(source, sourceRect, destPoint, operation, threshold, color, mas
 
 		var p = ColorTransform.prototype = {
 			/**
+			* The RGB color value for a ColorTransform object. When you set a value for this property, use the format 0xRRGGBB. it changes the three color offset values (redOffset, greenOffset, blueOffset) accordingly, and it sets the three color multiplier values (redMultiplier, greenMultiplier, blueMultiplier) to 0. The alpha channel's multiplier and offset values don't change.<br>
 			* ColortransformオブジェクトのRGBカラー値を返します。このプロパティに値を設定する際には、0xRRGGBB形式の16進数値を使用して下さい。設定された値は、R, G, Bのoffset値として設定され、同時に3つのカラー乗数値 (redMultiplier, greenMultiplier, blueMultiplier) が0に設定されます。アルファチャンネルの乗数値とオフセット値は変更しません。
 			* @property color
 			* @type uint
@@ -1853,6 +1878,7 @@ _bmd01.threshold(source, sourceRect, destPoint, operation, threshold, color, mas
 		p.constructor = ColorTransform;
 
 		/**
+		* The value for the red multiplier.<br>
 		* 赤チャンネル値に乗算する数値です。
 		* @property redMultiplier
 		* @type Number
@@ -1861,6 +1887,7 @@ _bmd01.threshold(source, sourceRect, destPoint, operation, threshold, color, mas
 		p.redMultiplier = 1;
 
 		/**
+		* The value for the green multiplier.<br>
 		* 緑チャンネル値に乗算する数値です。
 		* @property greenMultiplier
 		* @type Number
@@ -1869,6 +1896,7 @@ _bmd01.threshold(source, sourceRect, destPoint, operation, threshold, color, mas
 		p.greenMultiplier = 1;
 
 		/**
+		* The value for the blue multiplier.<br>
 		* 青チャンネル値に乗算する数値です。
 		* @property blueMultiplier
 		* @type Number
@@ -1877,6 +1905,7 @@ _bmd01.threshold(source, sourceRect, destPoint, operation, threshold, color, mas
 		p.blueMultiplier = 1;
 
 		/**
+		* The value for the alpha multiplier.<br>
 		* アルファチャンネル値に乗算する数値です。
 		* @property alphaMultiplier
 		* @type Number
@@ -1885,6 +1914,7 @@ _bmd01.threshold(source, sourceRect, destPoint, operation, threshold, color, mas
 		p.alphaMultiplier = 1;
 
 		/**
+		* The offset value for the red color channel.<br>
 		* 赤チャンネル値にredMultiplier値を乗算した後に加算する数値です。数値の範囲は -255～255です。
 		* @property redOffset
 		* @type Number
@@ -1893,6 +1923,7 @@ _bmd01.threshold(source, sourceRect, destPoint, operation, threshold, color, mas
 		p.redOffset = 0;
 
 		/**
+		* The offset value for the green color channel.<br>
 		* 緑チャンネル値にgreenMultiplier値を乗算した後に加算する数値です。数値の範囲は -255～255です。
 		* @property greenOffset
 		* @type Number
@@ -1901,6 +1932,7 @@ _bmd01.threshold(source, sourceRect, destPoint, operation, threshold, color, mas
 		p.greenOffset = 0;
 
 		/**
+		* The offset value for the blue color channel.<br>
 		* 青チャンネル値にblueMultiplier値を乗算した後に加算する数値です。数値の範囲は -255～255です。
 		* @property blueOffset
 		* @type Number
@@ -1909,6 +1941,7 @@ _bmd01.threshold(source, sourceRect, destPoint, operation, threshold, color, mas
 		p.blueOffset = 0;
 
 		/**
+		* The offset value for the alpha channel.<br>
 		* アルファチャンネル値にalphaMultiplier値を乗算した後に加算する数値です。数値の範囲は -255～255です。
 		* @property alphaOffset
 		* @type Number
@@ -1917,9 +1950,11 @@ _bmd01.threshold(source, sourceRect, destPoint, operation, threshold, color, mas
 		p.alphaOffset = 0;
 
 		/**
+		* Creates a clone of the current ColorTransform object.<br>
 		* 現在のColorTransformのクローンを作成します。
 		* @method clone
-		* @return {ColorTransform} 現在のColorTransformのクローンです。
+		* @return {ColorTransform} A clone of the current ColorTransform object.<br>
+		* 現在のColorTransformのクローンです。
 		**/
 		p.clone = function() {
 			var ctf = Object.create(ColorTransform.prototype);
@@ -1935,9 +1970,11 @@ _bmd01.threshold(source, sourceRect, destPoint, operation, threshold, color, mas
 		};
 
 		/**
+		* Concatenates the ColorTranform object specified by the 2nd parameter with the current ColorTransform object.<br>
 		* 引数のColorTransformと現在のColorTransformを連結します。
 		* @method concat
-		* @param second {ColorTransform} 現在のColorTransformオブジェクトと結合するColorTransformオブジェクトです。
+		* @param second {ColorTransform} A ColorTransform object to be combined with the current ColorTransform object.<br>
+		* 現在のColorTransformオブジェクトと結合するColorTransformオブジェクトです。
 		**/
 		p.concat = function(second) {
 			this.redOffset += this.redMultiplier * second.redOffset;
@@ -1951,9 +1988,11 @@ _bmd01.threshold(source, sourceRect, destPoint, operation, threshold, color, mas
 		};
 
 		/**
+		* Returns a string that describes all of the properties of the ColorTransform object.<br>
 		* ColorTransformのすべてのプロパティを列挙した文字列表現を返します。
 		* @method toString
-		* @return {String} ColorTransformの文字列表現です。
+		* @return {String} A string representation of the ColorTransform object.<br>
+		* ColorTransformの文字列表現です。
 		**/
 		p.toString = function() {
 			return "[ColorTransform (redMultiplier=" + this.redMultiplier + ", greenMultiplier=" + this.greenMultiplier + ", blueMultiplier=" + this.blueMultiplier + ", alphaMultiplier=" + this.alphaMultiplier + ", redOffset=" + this.redOffset + ", greenOffset=" + this.greenOffset + ", blueOffset=" + this.blueOffset + ", alphaOffset=" + this.alphaOffset + ")]";
