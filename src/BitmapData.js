@@ -613,10 +613,11 @@ var destPoint = new createjs.Point();
 _bmd01.applyFilter(source, sourceRect, destPoint, filter);</code></pre>
 	**/
 	p.expand = function(rect) {
-		var x = rect.x >> 0;
-		var y = rect.y >> 0;
-		var w = rect.width >> 0;
-		var h = rect.height >> 0;
+		var x = rect.x;
+		var y = rect.y;
+		var ceil = Math.ceil;
+		var w = ceil(rect.width);
+		var h = ceil(rect.height);
 		var cvs = createCanvas(this.canvas.width + w, this.canvas.height + h);
 		var ctx = cvs.getContext("2d");
 		ctx.drawImage(this.canvas, -x, -y);

@@ -29,7 +29,7 @@
 	function draw() {
 		_bmd01 = new createjs.BitmapData(_image01);
 		var source = _bmd01;
-		var filter = new createjs.BlurFilter(16, 16, 1);
+		var filter = new createjs.BlurFilter(16, 16, 4);
 		var rect = filter.getBounds();
 		_bmd01.expand(rect);
 		var sourceRect = new createjs.Rectangle(0, 0, _bmd01.width, _bmd01.height);
