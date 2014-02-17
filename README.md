@@ -1,4 +1,4 @@
-# Bitmapdata for EaselJS
+# BitmapData for EaselJS
 
 BitmapData for EaselJS adds AS3 like BitmapData to EaselJS.
 

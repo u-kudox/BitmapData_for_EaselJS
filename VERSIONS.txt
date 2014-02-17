@@ -1,3 +1,10 @@
+ver 1.0.1 [Feb 17, 2014]
+**********************************************************************************
+- Added English to the document.
+- Fixed a bug of expand(). I didn't suppose a number with a decimal point in the parameter rect.
+
+
+
 ver 1.0.0 [Oct 16, 2013]
 **********************************************************************************
 - EaselJS v0.7.0に合わせて”use strict”宣言を入れました。
