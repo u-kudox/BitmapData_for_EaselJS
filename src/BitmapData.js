@@ -805,6 +805,9 @@ _bmd02.fillRect(rect, color02);</code></pre>
 	* <pre><code>var color = forcemap.getPixel(x, y);</code></pre>
 	**/
 	p.getPixel = function(x, y) {
+		if (x < 0 || y < 0) {
+			return 0;
+		}
 		x = x >> 0;
 		y = y >> 0;
 		if (this._contextChanged) this.updateImageData();
@@ -834,6 +837,9 @@ _bmd02.fillRect(rect, color02);</code></pre>
 	* ARGBカラー値を表す数値です。
 	**/
 	p.getPixel32 = function(x, y) {
+		if (x < 0 || y < 0) {
+			return 0;
+		}
 		x = x >> 0;
 		y = y >> 0;
 		if (this._contextChanged) this.updateImageData();
@@ -1535,6 +1541,9 @@ _bmd01.perlinNoise(baseX, baseY, numOctaves, randomSeed, stitch, fractalNoise, c
 	* <pre><code>bmd.setPixel(x, y, 0x0099FF);</code></pre>
 	**/
 	p.setPixel = function(x, y, color) {
+		if (x < 0 || y < 0) {
+			return;
+		}
 		x = x >> 0;
 		y = y >> 0;
 		if (this._contextChanged) this.updateImageData();
@@ -1563,6 +1572,9 @@ _bmd01.perlinNoise(baseX, baseY, numOctaves, randomSeed, stitch, fractalNoise, c
 	* 指定したピクセルに設定するカラー値です。0xAARRGGBB形式の16進数値のみ使用できます。
 	**/
 	p.setPixel32 = function(x, y, color) {
+		if (x < 0 || y < 0) {
+			return;
+		}
 		x = x >> 0;
 		y = y >> 0;
 		if (this._contextChanged) this.updateImageData();

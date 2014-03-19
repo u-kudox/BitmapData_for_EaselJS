@@ -1,7 +1,8 @@
 {
   "name": "BitmapData_for_EaselJS",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "BitmapData for EaselJS adds AS3 like BitmapData to EaselJS.",
+  "url": "http://kudox.jp/java-script/createjs-easeljs-bitmapdata",
   "main": "Gruntfile.js",
   "repository": {
     "type": "git",
