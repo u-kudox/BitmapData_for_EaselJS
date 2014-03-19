@@ -1,3 +1,10 @@
+ver 1.0.2 [Mar 19, 2014]
+**********************************************************************************
+- Fixed an issue that arise when specified a negative value in the parameter x and y at the following functions:
+  getPixel(), getPixel32(), setPixel(), setPixel32().
+
+
+
 ver 1.0.1 [Feb 17, 2014]
 **********************************************************************************
 - Added English to the document.
