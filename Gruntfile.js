@@ -48,6 +48,32 @@ module.exports = function(grunt) {
 				},
 				files : [{expand:true, src:'**', cwd:'build/yuidoc'}]
 			}
+		},
+		replace : {
+			bitmapdata : {
+				src : ['examples/*.html'],
+				overwrite : true,
+				replacements : [{
+					from : /js\/bitmapdata-.+min\.js/,
+					to : 'js/bitmapdata-<%= pkg.version %>.min.js'
+				}]
+			},
+			easeljs : {
+				src : ['examples/*.html'],
+				overwrite : true,
+				replacements : [{
+					from : /js\/easeljs-.+min\.js/,
+					to : 'http://code.createjs.com/easeljs-0.8.0.min.js'
+				}]
+			},
+			preloadjs : {
+				src : ['examples/*.html'],
+				overwrite : true,
+				replacements : [{
+					from : /js\/preloadjs-.+min\.js/,
+					to : 'http://code.createjs.com/preloadjs-0.6.0.min.js'
+				}]
+			}
 		}
 	});
 
@@ -57,6 +83,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
 	grunt.loadNpmTasks('grunt-contrib-compress');
+	grunt.loadNpmTasks('grunt-text-replace');
 
 	grunt.registerTask('docs', ['clean:docs', 'yuidoc:docs', 'compress:docs']);
 	grunt.registerTask('bitmapdata', ['clean:bitmapdata', 'uglify:bitmapdata', 'copy:bitmapdata']);

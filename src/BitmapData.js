@@ -1,6 +1,6 @@
 /*
 BitmapData for EaselJS
-Version: 1.00
+Version: 1.10
 Author: kudox
 http://kudox.jp/
 http://twitter.com/u_kudox
@@ -43,14 +43,45 @@ _stage.addChild(_bitmap02);</code></pre>
 	function BitmapData(image, width, height, fillColor) {
 		width = width >> 0 || image.width || 300;
 		height = height >> 0 || image.height || 150;
+
+		/**
+		* A HTMLCanvasElement that bitmapdata is drawn.<br>
+		* BitmapDataが描画されるHTMLCanvasElementです。
+		* @property canvas
+		* @type HTMLCanvasElement
+		**/
 		var cvs = this.canvas = createCanvas(width, height);
+
+		/**
+		* A CanvasRenderingContext2D of the canvas.<br>
+		* canvasのCanvasRenderingContext2Dです。
+		* @property context
+		* @type CanvasRenderingContext2D
+		**/
 		var ctx = this.context = cvs.getContext("2d");
+
+		/**
+		* A name of the bitmapdata. It's used in toString().<br>
+		* BitmapDataの名前です。toString()で使用されます。
+		* @property name
+		* @type String
+		* @default null
+		**/
+		this.name = null;
+
+		// private properties
+		this._imageData = null;
+		this._contextChanged = false;
+
 		if (!!image) ctx.drawImage(image, 0, 0);
 		if (fillColor !== undefined) this.fillRect(new createjs.Rectangle(0, 0, width, height), fillColor);
+		// TO DO
 		if (!this._imageData) this._imageData = ctx.getImageData(0, 0, width, height);
 	}
 
-	BitmapData.VERSION = "1.0.0";
+	var s = BitmapData;
+
+	s.VERSION = "1.1.0";
 
 	/**
 	* This method gets as a bitmapdata from cache of the DisplayObject. A bitmapData provided by this method is the reference of the DisplayObject's cache. If you called updateCache() at the DisplayObject, you must call updateImageData() at the Bitmapdata.<br>
@@ -72,10 +103,11 @@ var rect = new createjs.Rectangle(0, 0, _bmd01.width &gt;&gt; 1, _bmd01.height);
 _bmd01.colorTransform(rect, colorTransform);
 _stage.addChild(_shape);</code></pre>
 	**/
-	BitmapData.getBitmapData = function(object) {
+	s.getBitmapData = function(object) {
 		var bmd, cvs;
 		if (object instanceof createjs.DisplayObject) {
 			if (!!object.cacheCanvas) {
+				// TO DO use constructor
 				bmd = Object.create(BitmapData.prototype);
 				cvs = bmd.canvas = object.cacheCanvas;
 			} else {
@@ -125,34 +157,6 @@ _stage.addChild(_shape);</code></pre>
 	};
 
 	p.constructor = BitmapData;
-
-	/**
-	* A HTMLCanvasElement that bitmapdata is drawn.<br>
-	* BitmapDataが描画されるHTMLCanvasElementです。
-	* @property canvas
-	* @type HTMLCanvasElement
-	**/
-	p.canvas = null;
-
-	/**
-	* A CanvasRenderingContext2D of the canvas.<br>
-	* canvasのCanvasRenderingContext2Dです。
-	* @property context
-	* @type CanvasRenderingContext2D
-	**/
-	p.context = null;
-
-	/**
-	* A name of the bitmapdata. It's used in toString().<br>
-	* BitmapDataの名前です。toString()で使用されます。
-	* @property name
-	* @type String
-	* @default null
-	**/
-	p.name = null;
-
-	p._imageData = null;
-	p._contextChanged = false;
 
 	/**
 	* Apply the filter to the source object and generates the filtered image. You can also specify the current bitmapdata as a source.<br>

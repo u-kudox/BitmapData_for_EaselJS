@@ -30,6 +30,35 @@ BitmapData for EaselJS adds AS3 like BitmapData to EaselJS.
 	_stage.addChild(_shape);
 
 
+## Properties
+*
+*
+*
+*
+*
+*
+
+## Methods
+* add
+*
+*
+*
+*
+*
+*
+*
+*
+*
+*
+*
+*
+*
+*
+*
+*
+*
+
+
 ## Resources
 * More information and samples at the [kudox.jp](http://kudox.jp/java-script/createjs-easeljs-bitmapdata-tutorial)
 * Read the documentation at the [BitmapData for EaselJS API Documentation](http://kudox.jp/reference/bitmapdata_for_easeljs/)
