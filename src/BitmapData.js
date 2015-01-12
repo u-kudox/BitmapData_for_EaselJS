@@ -69,14 +69,14 @@ _stage.addChild(_bitmap02);</code></pre>
 		**/
 		this.name = null;
 
-		// private properties
-		this._imageData = null;
-		this._contextChanged = false;
-
 		if (!!image) ctx.drawImage(image, 0, 0);
 		if (fillColor !== undefined) this.fillRect(new createjs.Rectangle(0, 0, width, height), fillColor);
-		// TO DO
-		if (!this._imageData) this._imageData = ctx.getImageData(0, 0, width, height);
+
+		/**
+		* private properties
+		**/
+		this._imageData = ctx.getImageData(0, 0, width, height);
+		this._contextChanged = false;
 	}
 
 	var s = BitmapData;
@@ -104,10 +104,9 @@ _bmd01.colorTransform(rect, colorTransform);
 _stage.addChild(_shape);</code></pre>
 	**/
 	s.getBitmapData = function(object) {
-		var bmd, cvs;
+		var bmd, cvs, ctx;
 		if (object instanceof createjs.DisplayObject) {
 			if (!!object.cacheCanvas) {
-				// TO DO use constructor
 				bmd = Object.create(BitmapData.prototype);
 				cvs = bmd.canvas = object.cacheCanvas;
 			} else {
@@ -116,8 +115,10 @@ _stage.addChild(_shape);</code></pre>
 		} else {
 			return;
 		}
-		var ctx = bmd.context = cvs.getContext("2d");
+		ctx = bmd.context = cvs.getContext("2d");
 		bmd._imageData = ctx.getImageData(0, 0, cvs.width, cvs.height);
+		bmd.name = null;
+		bmd._contextChanged = false;
 		return bmd;
 	};
 

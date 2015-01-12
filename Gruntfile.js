@@ -62,16 +62,16 @@ module.exports = function(grunt) {
 				src : ['examples/*.html'],
 				overwrite : true,
 				replacements : [{
-					from : /js\/easeljs-.+min\.js/,
-					to : 'http://code.createjs.com/easeljs-0.8.0.min.js'
+					from : /easeljs-.+min\.js/,
+					to : 'easeljs-0.8.0.min.js'
 				}]
 			},
 			preloadjs : {
 				src : ['examples/*.html'],
 				overwrite : true,
 				replacements : [{
-					from : /js\/preloadjs-.+min\.js/,
-					to : 'http://code.createjs.com/preloadjs-0.6.0.min.js'
+					from : /preloadjs-.+min\.js/,
+					to : 'preloadjs-0.6.0.min.js'
 				}]
 			}
 		}
