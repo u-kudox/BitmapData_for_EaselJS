@@ -31,32 +31,47 @@ BitmapData for EaselJS adds AS3 like BitmapData to EaselJS.
 
 
 ## Properties
-*
-*
-*
-*
-*
-*
+* canvas
+* context
+* name
+* width [read only]
+* height [read only]
+* rect [read only]
 
 ## Methods
-* add
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
+* applyFilter
+* clearRect
+* clone
+* colorTransform
+* compare
+* copyChannel
+* copyPixels
+* dispose
+* draw
+* drawImage
+* expand
+* fillRect
+* floodFill
+* getBitmapData [static]
+* getColorBoundsRect
+* getPixel
+* getPixel32
+* getPixels
+* histogram
+* hitTest
+* merge
+* noise
+* paletteMap
+* perlinNoise
+* pixelDissolve
+* scroll
+* setPixel
+* setPixel32
+* setPixels
+* threshold
+* toString
+* updateContext
+* updateImageData
 
 
 ## Resources
