@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>merge | BitmapData for EaselJS</title>
+<title>clone | BitmapData for EaselJS</title>
 <link rel="stylesheet" type="text/css" href="css/sample.css" media="all">
 <script type="text/javascript" src="http://code.createjs.com/preloadjs-0.6.0.min.js"></script>
 <script type="text/javascript" src="http://code.createjs.com/easeljs-0.8.0.min.js"></script>
@@ -14,9 +14,9 @@
 
 	var _canvas;
 	var _stage;
-	var _image01, _image02;
-	var _bmd01, _bmd02, _bmd03;
-	var _bitmap01, _bitmap02, _bitmap03;
+	var _image01;
+	var _bmd01, _bmd02;
+	var _bitmap01, _bitmap02;
 
 	function init(canvasID) {
 		_canvas = document.getElementById(canvasID);
@@ -27,43 +27,33 @@
 	}
 
 	function draw() {
-		_bmd01 = new createjs.BitmapData(_image01);
-		_bmd02 = _bmd01.clone();
-		_bmd03 = new createjs.BitmapData(_image02);
-		var source = _bmd03;
-		var sourceRect = new createjs.Rectangle(0, 0, _image02.width, _image02.height);
-		var destPoint = new createjs.Point();
-		var redMultiplier = 192;
-		var greenMultiplier = 64;
-		var blueMultiplier = 128;
-		var alphaMultiplier = 128;
-		_bmd02.merge(source, sourceRect, destPoint, redMultiplier, greenMultiplier, blueMultiplier, alphaMultiplier);
+		var image = _image01;
+		_bmd01 = new createjs.BitmapData(image);
 		_bitmap01 = new createjs.Bitmap(_bmd01.canvas);
-		_bitmap02 = new createjs.Bitmap(_bmd02.canvas);
-		_bitmap03 = new createjs.Bitmap(_bmd03.canvas);
-		_bitmap01.x = 10;
-		_bitmap02.x = 220;
-		_bitmap03.x = 430;
-		_bitmap01.y = _bitmap02.y = _bitmap03.y =  80;
+		_bitmap01.regX = _bmd01.width >> 1;
+		_bitmap01.regY = _bmd01.height >> 1;
+		_bitmap01.x = (_canvas.width >> 1) - 120;
+		_bitmap01.y = _canvas.height >> 1;
 		_stage.addChild(_bitmap01);
+		_bmd02 = _bmd01.clone();
+		_bitmap02 = new createjs.Bitmap(_bmd02.canvas);
+		_bitmap02.regX = _bmd02.width >> 1;
+		_bitmap02.regY = _bmd02.height >> 1;
+		_bitmap02.x = (_canvas.width >> 1) + 120;
+		_bitmap02.y = _canvas.height >> 1;
 		_stage.addChild(_bitmap02);
-		_stage.addChild(_bitmap03);
 		_stage.update();
 	}
 
 	function load() {
 		var loader = new createjs.LoadQueue();
 		var manifest = [
-			{src:"img/image_01_s.jpg", id:"image01s"},
-			{src:"img/image_02_s.jpg", id:"image02s"}
+			{src:"img/image_01_s.jpg", id:"image01s"}
 		];
 		function fileloadHandler(evt) {
 			switch(evt.item.id) {
 				case "image01s" :
 					_image01 = evt.result;
-					break;
-				case "image02s" :
-					_image02 = evt.result;
 					break;
 			}
 		}

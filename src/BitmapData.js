@@ -1,6 +1,6 @@
 /*
 BitmapData for EaselJS
-Version: 1.10
+Version: 1.11
 Author: kudox
 http://kudox.jp/
 http://twitter.com/u_kudox
@@ -81,7 +81,7 @@ _stage.addChild(_bitmap02);</code></pre>
 
 	var s = BitmapData;
 
-	s.VERSION = "1.1.0";
+	s.VERSION = "1.1.1";
 
 	/**
 	* This method gets as a bitmapdata from cache of the DisplayObject. A bitmapData provided by this method is the reference of the DisplayObject's cache. If you called updateCache() at the DisplayObject, you must call updateImageData() at the Bitmapdata.<br>
@@ -243,6 +243,8 @@ _bmd01.clearRect(x, y, width, height);</code></pre>
 		if (this._contextChanged) this.updateImageData();
 		ctx.putImageData(this._imageData, 0, 0);
 		bmd._imageData = ctx.getImageData(0, 0, w, h);
+		bmd.name = this.name;
+		bmd._contextChanged = false;
 		return bmd;
 	};
 
